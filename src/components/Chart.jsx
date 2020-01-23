@@ -26,13 +26,25 @@ const Chart = ({ sparklineData }) => {
     })
     .filter(data => data);
 
+    const CustomToolTip = ({payload, label, active}) => {
+      if(active) {
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`{On ${label} the value was ${payload[0].value}}`}</p>
+            
+          </div>
+        );
+      }
+      return null;
+    }
+
   return (
     <LineChart width={1100} height={300} data={formattedData}>
       <Line type="monotone" dataKey="value" stroke="#8884d8" />
       <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-      <XAxis dataKey="date" interval={3} />
-      <YAxis />
-      <Tooltip />
+      <XAxis dataKey="date" interval={3}  className="xAxis"/>
+      <YAxis className="yAxis"/>
+      <Tooltip content={<CustomToolTip/>} />
     </LineChart>
   );
 };
